@@ -3,9 +3,11 @@ package com.vedruna.ProyectoApi.persistance.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.vedruna.ProyectoApi.persistance.models.Project;
+import com.vedruna.ProyectoApi.persistance.models.Technology;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Integer> {
+public interface TechnologyRepositoryI extends JpaRepository<Technology, Integer> {
+
     
-}
+} 
+    

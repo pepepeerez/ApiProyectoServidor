@@ -1,10 +1,12 @@
 package com.vedruna.ProyectoApi.persistance.models;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
-import ch.qos.logback.core.status.Status;
+import com.vedruna.ProyectoApi.validation.ValidUrl;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,51 +18,59 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "projects")
-
-public class Project implements Serializable{
+@Table(name="projects")
+public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "project_id", nullable = false)
-    private Integer projectId;
+    @Column(name="project_id")
+    private int id;
 
-    @Column(name = "project_name", length = 45, unique = true, nullable = false)
-    private String projectName;
+    @Column(name="project_name")
+    @NotNull(message = "Name cannot be null")
+    @NotBlank(message = "Name cannot be empty")
+    private String name;
 
-    @Column(name = "description", nullable = true)
+    @Column(name="description")
+    @Size(min = 2, max = 50, message = "Description must be between 2 and 50 characters")
     private String description;
+    
+    @Column(name="start_date")
+    @FutureOrPresent(message = "The start date cannot be before today")
+    private Date start_date;
 
-    @Column(name = "start_date", nullable = true)
-    private LocalDate startDate;
+    @Column(name="end_date")
+    private Date end_date;
 
-    @Column(name = "end_date", nullable = true)
-    private LocalDate endDate;
+    @Column(name="repository_url")
+    @ValidUrl(message = "Invalid URL format")
+    private String repository_url;
 
-    @Column(name = "repository_url", length = 255, nullable = true)
-    private String repositoryUrl;
+    @Column(name="demo_url")
+    @ValidUrl(message = "Invalid URL format")
+    private String demo_url;
 
-    @Column(name = "demo_url", length = 255, nullable = true)
-    private String demoUrl;
-
-    @Column(name = "picture", length = 255, nullable = true)
+    @Column(name="picture")
     private String picture;
 
-    @ManyToOne(fetch= FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinColumn(name = "status_status_id", referencedColumnName = "status_id", nullable = false)
-    private Status status;
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name="status_status_id", referencedColumnName = "status_id")
+    private Status stateProject;
 
-    @ManyToMany(mappedBy = "projectsByDeveloper", fetch = FetchType.LAZY)
-    private List<Developer> developers;
+    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy="projectsTechnologies")
+    private List<Technology> technologies = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "projectsByTechnology", fetch = FetchType.LAZY)
-    private List<Technology> technologies;
+    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy="projectsDevelopers")
+    private List<Developer> developers = new ArrayList<>();
 
-    
 }

@@ -1,8 +1,10 @@
 package com.vedruna.ProyectoApi.DTO;
 
-import java.lang.Thread.State;
+
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.vedruna.ProyectoApi.persistance.models.Status;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,7 +20,7 @@ public class StateDTO {
     private String name;
     private List<ProjectDTO> statesWithProject;
 
-    public StateDTO(State s) {
+    public StateDTO(Status s) {
         this.id = s.getId();
         this.name = s.getName();
         this.statesWithProject = s.getStatesWithProject() != null ? s.getStatesWithProject().stream()

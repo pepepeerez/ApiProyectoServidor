@@ -7,10 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import com.vedruna.ProyectoApi.DTO.ProjectDTO;
 import com.vedruna.ProyectoApi.DTO.ResponseDTO;
+import com.vedruna.ProyectoApi.persistance.models.Project;
 import com.vedruna.ProyectoApi.services.ProjectServiceI;
+
+import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/api/v1")
 @CrossOrigin

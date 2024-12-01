@@ -10,23 +10,32 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "status")
+@Table(name="status")
 public class Status {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "status_id", nullable = false)
-    private Integer statusId;
+    @Column(name="status_id")
+    private int id;
 
-    @Column(name = "status_name", length = 20, unique = true, nullable = false)
-    private String statusName;
+    @Column(name="status_name")
+    @NotNull(message = "Name cannot be null")
+    private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "status")
-    private List<Project> projects;
+    @OneToMany(fetch= FetchType.LAZY, mappedBy="stateProject")
+    private List<Project> statesWithProject;
+
+
+
+
+
+
+    
 }

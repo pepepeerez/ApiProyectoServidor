@@ -1,6 +1,7 @@
 package com.vedruna.ProyectoApi.DTO;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.vedruna.ProyectoApi.persistance.models.Developer;

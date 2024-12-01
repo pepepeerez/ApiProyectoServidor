@@ -1,5 +1,14 @@
 package com.vedruna.ProyectoApi.services;
 
-public class DeveloperServiceI {
+import com.vedruna.ProyectoApi.persistance.models.Developer;
+
+public interface DeveloperServiceI {
+
+    void saveDeveloper(Developer developer);
+    boolean deleteDeveloper(Integer id);
+    Developer findById(Integer developerId);
+
+
+
     
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.vedruna.ProyectoApi.DTO.ResponseDTO;
+import com.vedruna.ProyectoApi.persistance.repositories.TechnologyRepositoryI;
 import com.vedruna.ProyectoApi.services.TechnologyServiceI;
 @RestController
 @RequestMapping("/api/v1")
@@ -17,7 +18,7 @@ public class TechnologyController {
 
     // Guarda una nueva tecnología con los proyectos asociados
     @PostMapping("/technologies")
-    public ResponseEntity<String> createTechnology(@RequestBody Technology technology) {
+    public ResponseEntity<String> createTechnology(@RequestBody TechnologyRepositoryI technology) {
         try {
             // Llama al servicio para guardar la tecnología
             technologyService.saveTechnology(technology);
